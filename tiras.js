@@ -1,7 +1,9 @@
+//Código tomado de: https://github.com/zygisS22/color-palette-extraction/blob/master/index.html
+//Créditos a: Zygimantas Sniurevicius
 const buildPalette = (colorsList) => {
     const paletteContainer = document.getElementById("palette");
     const complementaryContainer = document.getElementById("complementary");
-    // reset the HTML in case you load various images
+    // Si se quiere analizar varias imágenes se debe recargar la página y repetir el proceso
     paletteContainer.innerHTML = "";
     complementaryContainer.innerHTML = "";
   
@@ -19,18 +21,18 @@ const buildPalette = (colorsList) => {
           orderedByColor[i - 1]
         );
   
-        // if the distance is less than 120 we ommit that color
+        // Si la distancia es menor a 120 se omite ese color
         if (difference < 120) {
           continue;
         }
       }
   
-      // create the div and text elements for both colors & append it to the document
+      //Se crean los elementos que se adjuntaran al documento y mostraran los colores
       const colorElement = document.createElement("div");
       colorElement.style.backgroundColor = hexColor;
       colorElement.appendChild(document.createTextNode(hexColor));
       paletteContainer.appendChild(colorElement);
-      // true when hsl color is not black/white/grey
+      //Se entra al if cuando el color hsl no es negro/blanco/gris
       if (hslColors[i].h) {
         const complementaryElement = document.createElement("div");
         complementaryElement.style.backgroundColor = `hsl(${hslColors[i].h},${hslColors[i].s}%,${hslColors[i].l}%)`;
@@ -43,7 +45,7 @@ const buildPalette = (colorsList) => {
     }
   };
   
-  //  Convert each pixel value ( number ) to hexadecimal ( string ) with base 16
+  // Convierte cada valor del pixel (es decir, un número) a hexadecimal (a una variable tipo String) con base 16 
   const rgbToHex = (pixel) => {
     const componentToHex = (c) => {
       const hex = c.toString(16);
@@ -59,7 +61,7 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Convert HSL to Hex
+   * Convertir HSL a Hex
    * this entire formula can be found in stackoverflow, credits to @icl7126 !!!
    * https://stackoverflow.com/a/44134328/17150245
    */
@@ -79,7 +81,7 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Convert RGB values to HSL
+   * Convertir valores RGB a HSL
    * This formula can be
    * found here https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
    */
@@ -89,7 +91,7 @@ const buildPalette = (colorsList) => {
         saturation,
         luminance = 0;
   
-      // first change range from 0-255 to 0 - 1
+      // Inicialmente, se cambia el rango de 0-255 a 0-1
       let redOpposite = pixel.r / 255;
       let greenOpposite = pixel.g / 255;
       let blueOpposite = pixel.b / 255;
@@ -108,9 +110,9 @@ const buildPalette = (colorsList) => {
       }
   
       /**
-       * If Red is max, then Hue = (G-B)/(max-min)
-       * If Green is max, then Hue = 2.0 + (B-R)/(max-min)
-       * If Blue is max, then Hue = 4.0 + (R-G)/(max-min)
+       * Si Rojo es máximo, entonces Iluminación = (G-B)/(max-min)
+       * Si Verde es máximo, entonces Iluminación = 2.0+(B-R)/(max-min)
+       * Si azul es máximo, entonces Ilumincación = 4.0 + (R-G)/(max-min)
        */
       const maxColorValue = Math.max(pixel.r, pixel.g, pixel.b);
   
@@ -122,20 +124,20 @@ const buildPalette = (colorsList) => {
         hue = 4.0 + (greenOpposite - blueOpposite) / difference;
       }
   
-      hue = hue * 60; // find the sector of 60 degrees to which the color belongs
+      hue = hue * 60; // Se encuentra el sector de 60° a la cual el color pertenece
   
-      // it should be always a positive angle
+      // Siempre debe ser positivo el ángulo
       if (hue < 0) {
         hue = hue + 360;
       }
   
-      // When all three of R, G and B are equal, we get a neutral color: white, grey or black.
+      //Cuanod todos los tres (R,G y B) son iguales, se obtiene un color neutral (Blanco, gris o negro)
       if (difference === 0) {
         return false;
       }
   
       return {
-        h: Math.round(hue) + 180, // plus 180 degrees because that is the complementary color
+        h: Math.round(hue) + 180, //Se suma 180° porque ese es el color complementario
         s: parseFloat(saturation * 100).toFixed(2),
         l: parseFloat(luminance * 100).toFixed(2),
       };
@@ -143,9 +145,8 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Using relative luminance we order the brightness of the colors
-   * the fixed values and further explanation about this topic
-   * can be found here -> https://en.wikipedia.org/wiki/Luma_(video)
+   * Usando iluminación relativa, se ordena el brillo de los colores
+   * la explicación de esta temática se encuentra aquí: -> https://en.wikipedia.org/wiki/Luma_(video)
    */
   const orderByLuminance = (rgbValues) => {
     const calculateLuminance = (p) => {
@@ -158,9 +159,8 @@ const buildPalette = (colorsList) => {
   };
   
   const buildRgb = (imageData) => {
-    const rgbValues = [];
-    // note that we are loopin every 4!
-    // for every Red, Green, Blue and Alpha
+    const rgbValues = [];    
+    // Se itera cada cuatro veces debido a que se debe obtener de la información de la imagen los valores de rojo, verde, azul y alfa.
     for (let i = 0; i < imageData.length; i += 4) {
       const rgb = {
         r: imageData[i],
@@ -175,11 +175,10 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Calculate the color distance or difference between 2 colors
+   * Calcular la distancia del color o la diferencia entre dos colores
    *
-   * further explanation of this topic
-   * can be found here -> https://en.wikipedia.org/wiki/Euclidean_distance
-   * note: this method is not accuarate for better results use Delta-E distance metric.
+   * Para mayor explicación: -> https://en.wikipedia.org/wiki/Euclidean_distance
+   * Nota: este método no es preciso, para mejores resultados usar la métrica Delta-E 
    */
   const calculateColorDifference = (color1, color2) => {
     const rDifference = Math.pow(color2.r - color1.r, 2);
@@ -189,14 +188,14 @@ const buildPalette = (colorsList) => {
     return rDifference + gDifference + bDifference;
   };
   
-  // returns what color channel has the biggest difference
+  // Retorna que canal de color tiene la mayor diferencia
   const findBiggestColorRange = (rgbValues) => {
     /**
-     * Min is initialized to the maximum value posible
-     * from there we procced to find the minimum value for that color channel
+     * Min se inicializa en el máximo valor posible
+     * de aquí se procede a encontrar el valor mínimo para ese canal de color
      *
-     * Max is initialized to the minimum value posible
-     * from there we procced to fin the maximum value for that color channel
+     * Max se inicializa en el mínimo valor posible
+     * de aquí se procede a encontrar el valor máximo para ese canal de color
      */
     let rMin = Number.MAX_VALUE;
     let gMin = Number.MAX_VALUE;
@@ -220,7 +219,7 @@ const buildPalette = (colorsList) => {
     const gRange = gMax - gMin;
     const bRange = bMax - bMin;
   
-    // determine which color has the biggest difference
+    // Se determina cual color tiene la mayor diferencia
     const biggestRange = Math.max(rRange, gRange, bRange);
     if (biggestRange === rRange) {
       return "r";
@@ -232,8 +231,8 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Median cut implementation
-   * can be found here -> https://en.wikipedia.org/wiki/Median_cut
+   * Implementaci "Median cut"
+   * para mayor información -> https://en.wikipedia.org/wiki/Median_cut
    */
   const quantization = (rgbValues, depth) => {
     const MAX_DEPTH = 4;
@@ -263,11 +262,11 @@ const buildPalette = (colorsList) => {
     }
   
     /**
-     *  Recursively do the following:
-     *  1. Find the pixel channel (red,green or blue) with biggest difference/range
-     *  2. Order by this channel
-     *  3. Divide in half the rgb colors list
-     *  4. Repeat process again, until desired depth or base case
+     *  Recursivamente hace lo siguiente:
+     *  1. Encuentra el canal del pixel (rojo, verde o azul) con la mayor diferencia/rango
+     *  2. Ordena este canal
+     *  3. Divide por la mitad la lista de colores rgb
+     *  4. Se repite el proceso, hasta que se obtenga la profundidad deseada 
      */
     const componentToSortBy = findBiggestColorRange(rgbValues);
     rgbValues.sort((p1, p2) => {
@@ -287,10 +286,10 @@ const buildPalette = (colorsList) => {
     const file = imgFile.files[0];
     const fileReader = new FileReader();
   
-    // Whenever file & image is loaded procced to extract the information from the image
+    // Cuando el archivo imagen es cargado, se procede a extraer la información de la imagen.
     fileReader.onload = () => {
       image.onload = () => {
-        // Set the canvas size to be the same as of the uploaded image
+        // Establece el tamaño del canvas para ser el mismo de la imagen cargada
         const canvas = document.getElementById("canvas");
         canvas.width = image.width;
         canvas.height = image.height;
@@ -298,24 +297,24 @@ const buildPalette = (colorsList) => {
         ctx.drawImage(image, 0, 0);
   
         /**
-         * getImageData returns an array full of RGBA values
-         * each pixel consists of four values: the red value of the colour, the green, the blue and the alpha
-         * (transparency). For array value consistency reasons,
-         * the alpha is not from 0 to 1 like it is in the RGBA of CSS, but from 0 to 255.
+         * getImageData retorna un array lleno de valores RGBA
+         * cada pixel consist en 4 valores, el valor de rojo, verde, azul y alfa
+         * (transparencia). Por razones de coherencia de valores de matriz,
+         * el alpha no es de 0 a 1 como en el RGBA de CSS, sino de 0 a 255.
          */
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   
-        // Convert the image data to RGB values so its much simpler
+        // Convierte la información de la imagen a valores RGB, con el objetivo de simplificar el proceso
         const rgbArray = buildRgb(imageData.data);
   
         /**
-         * Color quantization
-         * A process that reduces the number of colors used in an image
-         * while trying to visually maintin the original image as much as possible
+         * Cuantización de Color 
+         * Es un proceso que reduce el número de colores usados en una imagen
+         * mientras se intenta visualizamente mantener la imagen original lo máximo posible
          */
         const quantColors = quantization(rgbArray, 0);
   
-        // Create the HTML structure to show the color palette
+        // Se crea la estructura HTML para mostrar la paleta de colores
         buildPalette(quantColors);
       };
       image.src = fileReader.result;

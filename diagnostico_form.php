@@ -31,7 +31,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   <title>SysKidney</title>
 </head>
 
-<body onload="porc()">
+<body id="home" onload="porc()">
   <header>
   <nav class="container mx-auto navbar">
     <section class="navbar-list">      
