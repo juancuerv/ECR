@@ -1,0 +1,266 @@
+:root {
+  --v-gris: #f3f4f6;
+  --v-gris-p: #8c8d8f;
+  --v-gris-b: #5a5a5b;
+  --v-color-buttons: #5eb4fb30;
+  --v-color-border: #46aafc71;
+  --v-border: #a5b4fcbf;
+  --v-bk: #a5b4fc30;
+  --v-p: #8ea0fb30;
+}
+
+/* html only */
+
+html {
+  background-color: #fff;
+}
+
+body {  
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+p::selection,
+h1::selection,
+h2::selection,
+h3::selection {
+  background: var(--v-p);
+}
+
+header {
+  padding: 0 1rem 0 1rem;
+  background-color: var(--v-gris);
+}
+
+footer {
+  margin-top: 2rem;
+  background-color: var(--v-gris);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type:circle;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.875rem;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+
+
+/* Ids only */
+#home{
+  background: url("../img/fondo.png"); 
+  background-size:100% 700px; 
+  background-repeat: no-repeat; /* Establecer el fondo para que no se repita la visualización */
+}
+#profile{
+  position: relative;
+  border-radius: 0.375rem;
+  text-align: center;
+  margin-left: 5%;  
+  padding: 70px 10px 10px 10px;
+	background-image: url("../icons/usuario.png");
+  background-repeat: no-repeat;
+  background-size:auto;
+  background-position: center;
+}
+
+#profile:hover{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  background-color: rgb(88, 216, 255);
+}
+
+#description{
+  text-align: center;
+}
+
+#navbar-logo {
+  margin-right: 1rem;
+}
+
+#wrapper {
+  display: grid;
+  gap: 2rem;
+}
+
+#photo {
+  border-radius: 9999px;
+  margin-right: 1rem;
+}
+
+#session{
+  position: relative;  
+  background-color:rgb(201, 35, 35);
+  color: white;
+}  
+#session:hover{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  background-color: rgb(250, 198, 198);
+}
+
+#edit{
+  border: 2px solid var(--v-color-border);
+  border-radius: 5px;
+  font-size: 18px;
+  line-height: 50px;
+  margin-left: 45%;  
+  outline: none;
+  background-color:rgb(9, 212, 248);
+  color: white;
+}  
+#edit:hover{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  background-color: rgb(0, 151, 161);
+
+}
+
+#item1 {
+  display: grid;
+  gap: 20px;
+  justify-content:space-between; 
+  width: auto;
+}
+/* Clases only */
+ 
+.navbar-list {
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar-list:first-of-type {
+  margin-right: 1rem;
+}
+
+.navbar-list > a {
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem 0.5rem 0.75rem;
+}
+
+.navbar-list > a:hover {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  background-color: var(--v-color-buttons);
+}
+
+.wrapper-inicio {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  padding: 1.5rem 0 1.5rem 0;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 100px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background: no-repeat;
+  background-image: url('../img/wallpaper.svg');
+  border-radius: 1rem;
+}
+
+.wrapper-inicio-photo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.info{
+  display: flex;
+  gap: 2rem;
+  justify-content:space-between;
+  width: 100%;
+}
+
+
+.bk1 {
+  background-image: url('../img/wallpaper1.svg');
+}
+
+/* media querys only */
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+.container {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  #navbar-logo {
+    margin-right: 0;
+  }
+
+  .navbar-list {
+    padding: 1rem 0 1rem 0;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .wrapper-inicio {
+    grid-template-columns: 1fr;
+  }
+
+  .container-socialmedia {
+    justify-content: center;
+  }
+  .wrapper-tiras {
+    padding: 2rem 1rem 0 1rem;
+  }
+
+  .tiras{
+    grid-template-columns: 1fr;
+  }
+}
