@@ -145,8 +145,9 @@ input[type=file].hidden {
 
 #profile:hover{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
+  transition-duration: 0.16s;
   background-color: rgb(88, 216, 255);
+  
 }
 #back{
   position: absolute;
