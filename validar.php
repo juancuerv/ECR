@@ -45,7 +45,7 @@ if ($numero_filas > 0)
         elseif($tipo_usuario == 2)
             header("Location: home_cliente.php");
         else
-            header("Location: riesgo.html");
+            header("Location: home_medico.php");
       }
     else 
      {

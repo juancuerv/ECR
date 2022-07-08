@@ -12,7 +12,7 @@
 /* html only */
 
 html {
-  background-color: rgb(219, 212, 212);
+  background-color: rgb(255, 255, 255);
 }
 
 body {  
@@ -187,13 +187,12 @@ input[type=file].hidden {
   background-color: rgb(250, 198, 198);
 }
 #imgfile{
-  border: 2px solid var(--v-color-border);
   border-radius: 5px;
   font-size: 18px;
   line-height: 50px;
   width:175px;
   outline: none;
-  background-color:rgb(174, 175, 174);  
+  
 }
 #btnLoad{
   border: 2px solid var(--v-color-border);
@@ -204,7 +203,7 @@ input[type=file].hidden {
   color: white;
   background-color:rgb(9, 212, 248);  
 }  
-#btnLoad:hover, #imgfile:hover{
+#btnLoad:hover{
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
   background-color: rgb(0, 151, 161);

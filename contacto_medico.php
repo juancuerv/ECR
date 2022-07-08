@@ -11,7 +11,7 @@ if ($_SESSION["autenticado"] != "SIx3")
 else
 {      
   $mysqli = new mysqli($host, $user, $pw, $db);
-  $sqlusu = "SELECT * from tipo_usuario where id='2'"; 
+  $sqlusu = "SELECT * from tipo_usuario where id='3'"; 
   $resultusu = $mysqli->query($sqlusu);
   $rowusu = $resultusu->fetch_array(MYSQLI_NUM);
   $desc_tipo_usuario = $rowusu[1];
@@ -26,43 +26,51 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="SysKidney" />
-  <link rel="stylesheet" href="css/tiras.css" />
+  <link rel="stylesheet" href="css/contacto.css" />
   <link rel="icon" href="img/logo2.jpeg" />
   <title>SysKidney</title>
 </head>
 
-<body>
+<body id="home">
   <header>
   <nav class="container mx-auto navbar">
-    <section class="navbar-list">      
+  <section class="navbar-list">      
       <img id="navbar-logo" src="img/logo.png" width="100" height="100" alt="logo SysKidney" />  
-      <a href="home_cliente.php">Inicio</a>                    
-      <a href="diagnostico.php">Diagnóstico de ECR</a>                    
-      <a href="gestion_diag.php">Consultar Diagnósticos</a>                                          
-      <a href="contacto.php">Contacto</a>                    
-      <a id="profile" href="perfil.php"><?php echo $_SESSION["nombres"]?></a>                    
-      <a id="session" href="cerrar_sesion.php">Cerrar Sesión</a>
+      <a href="home_medico.php">Inicio</a>                          
+      <a href="gestion_diag.php">Consultar Estado del Paciente</a>                                          
+      <a href="contacto_medico.php">Contacto</a>                                              
+      <a id="session2" href="cerrar_sesion.php">Cerrar Sesión</a>
     </section>
     </nav>
-  </header>
+  </header>    
+  <?php
+  $id_usu=$_SESSION["id_usuario"];
+  $nombre=$_SESSION["nombres"];
+  $sql1 = "SELECT apellidos, correo from usuarios where id='$id_usu'";
+  $result1 = $mysqli->query($sql1);
+  $row = $result1->fetch_array(MYSQLI_NUM);
+  $apellidos=$row[0];
+  $correo=$row[1];
+  
+  ?>
   <main id="wrapper" class="container mx-auto">
-    <div >
-    <a id="back" href="tiras.php"></a>        
-      <h1>Selecciona la foto:</h1>                  
-      <script src="tiras.js"></script>
-        <form action="#">
-        <input class="hidden" accept="image/png, image/jpeg" type="file" id="imgfile">                        
-        <input type="button" id="btnLoad" value="Escanear" onclick="main();">         
-        </form>                    
-    </div>
-    <h1>Paleta de colores obtenidos de la imagen</h1> 
-    <canvas id="canvas"></canvas>
-    <div id="palette"></div>
-    <hr />
-    <div id="complementary"></div>
+    <section class="wrapper-contacto">
+      <h1>Formulario de contacto</h1>
+      <div id="formulario">
+        <form action="https://formsubmit.co/649231b8d576db1c8b15842933129323" method="POST" onsubmit="return alert('Su correo ha sido enviado correctamente. Pronto nos contactaremos con usted.')">
+          <input type="text" placeholder="Nombre" name="Nombre" value="<?php echo $nombre?> <?php echo $apellidos?>">
+          <input type="text" placeholder="Correo" name="Correo" value="<?php echo $correo?>">
+          <input type="text" placeholder="Asunto" name="Asunto">
+          <textarea placeholder="Mensaje" name="Mensaje"></textarea>
+          <button type="submit" value="Enviar">Enviar</button>
+          <input type="hidden" name="_next" value="http://localhost/ecr/home_cliente.php">
+          <input type="hidden" name="_captcha" value="false">
+           
+        </form>
+      </div>
+      <br />
       
     </section>
-    
   </main>
   <footer>
     <section class="footer-items">
@@ -80,7 +88,6 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
           </a>
         </div>
     </section>
-    
   </footer>
 </body>
 
