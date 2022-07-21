@@ -128,11 +128,11 @@ else
     while($row6 = $result6->fetch_array(MYSQLI_NUM)) {
       $tipo_usuario_con = $row6[0];
       $desc_tipo_usuario_con = $row6[1];
-      if ($tipo_usuario_con != $tipo_usuario) {
+      
         ?>   
-        <option value="<?php echo $tipo_usuario_con; ?>"> <?php echo $desc_tipo_usuario_con; ?>&ensp;&ensp;&ensp;</option>  
+        <option value="<?php echo $tipo_usuario_con; ?>"> <?php echo $desc_tipo_usuario_con; ?></option>  
         <?php
-        }   
+       
     }
     ?>
 
@@ -150,12 +150,10 @@ else
     $result6 = $mysqli->query($sql6);
     while($row6 = $result6->fetch_array(MYSQLI_NUM)) {
       $ciudad_con = $row6[0];
-      $name_ciudad_con = $row6[1];
-      if ($ciudad_con != $ciudad) {
+      $name_ciudad_con = $row6[1];      
         ?>   
-        <option value="<?php echo $ciudad_con; ?>"> <?php echo $name_ciudad_con; ?>&ensp;&ensp;&ensp;</option>  
-        <?php
-        }   
+        <option value="<?php echo $ciudad_con; ?>"> <?php echo $name_ciudad_con; ?></option>  
+        <?php       
     }
     ?>
 

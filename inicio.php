@@ -12,7 +12,7 @@
 
 <body>
 <a id="back" href="index.html">Volver</a>    
-    <form action="validar.php" method="POST">
+    <form action="validar.php" method="POST" autocomplete="off">
         <div id="login-box">
             <h1>Iniciar Sesión</h1> 
 
@@ -31,7 +31,7 @@
             
             <button type="submit" value="Iniciar Sesión" name="Enviar">Ingresar</button><br><br>
             <p>¿No tiene cuenta registrada? </p>
-            <a class="register" href="registrar.php">Registrarse</a><br>   
+            <a class="register" href="registrar.php">Regístrate aquí</a><br>   
             <?php
                 
                 if (isset($_GET["mensaje"]))

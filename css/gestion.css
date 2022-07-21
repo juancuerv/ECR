@@ -236,6 +236,16 @@
   #seleccion{
     position: relative;
   }
+  #noti{
+    margin-left: 3rem ;
+    width: fit-content;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+    border-radius: 10px;
+    line-height: 30px;
+    font-weight: bold;
+    background-color: rgb(255, 255, 0);
+  }
   /* Clases only */
    
   .formulario{
@@ -306,7 +316,16 @@
     margin-left: 10px;
     height: 30px;
     margin-top: 88px;    
+    background-color:rgb(9, 212, 248);
+    color: white;
   }
+ 
+  .item6:hover{
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.07s;
+  background-color: rgb(0, 151, 161);
+  }
+  
 
   
   .navbar-list {

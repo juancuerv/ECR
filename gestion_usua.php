@@ -113,22 +113,22 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     if (isset($_GET["mensaje"])) {
     $mensaje = $_GET["mensaje"];
     if ($_GET["mensaje"] != "") { ?>
-    
-
-    <tr>
+        
+    <p id="noti">
       <?php
+      
       if ($mensaje == 1)
-        echo "<p>Usuario actualizado correctamente.";
+        echo "Usuario actualizado correctamente.";
       if ($mensaje == 2)
-        echo "<p>Usuario no fue actualizado correctamente.";
+        echo "Usuario no fue actualizado correctamente.";
       if ($mensaje == 3)
-        echo "<p>Usuario creado correctamente.";
+        echo "Usuario creado correctamente.";
       if ($mensaje == 4)
-        echo "<p>Usuario no fue creado. Se presentó un inconveniente";
+        echo "Usuario no fue creado. Se presentó un inconveniente";
       if ($mensaje == 5)
-        echo "<p>Usuario no fue creado. Ya existe un usuario con el mismo ID.";
+        echo "Usuario no fue creado. Ya existe un usuario con el mismo ID.";
       if ($mensaje == 6)
-        echo "<p>Usuario no fue creado. La contraseña no coincide.";
+        echo "Usuario no fue creado. La contraseña no coincide.";
       ?>
     </p>
     <?php
@@ -169,13 +169,13 @@ if ((isset($_POST["enviado"])))
   }
   if ($id_con != "") {
     if (($estado != "2")&&($tipo!=1))
-    $sql1 = "SELECT * FROM usuarios WHERE num_id='$id_con' and activo=$estado and tipo_usuario=$tipo order by nombres";
+    $sql1 = "SELECT * FROM usuarios WHERE num_id LIKE '$id_con%' and activo=$estado and tipo_usuario=$tipo order by nombres";
     if (($estado == "2")&&($tipo!=1))
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' and tipo_usuario=$tipo order by nombres";
+    $sql1 = "SELECT * from usuarios where num_id LIKE '$id_con%' and tipo_usuario=$tipo order by nombres";
     if (($estado != "2")&&($tipo==1))
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' and activo=$estado order by nombres";
+    $sql1 = "SELECT * from usuarios where num_id LIKE '$id_con%' and activo=$estado order by nombres";
     else
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' order by nombres";
+    $sql1 = "SELECT * from usuarios where num_id LIKE '$id_con%' order by nombres";
   }
   
 } 

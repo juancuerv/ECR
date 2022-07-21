@@ -237,12 +237,12 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     while($row = $result->fetch_array(MYSQLI_NUM)) {
       $medicamento_con = $row[0];
       $desc_medicamento_con = $row[1];
-      if ($medicamento_con != $medicamento) {
+      
         ?>   
         <option value="<?php echo $medicamento_con; ?>"> <?php echo $desc_medicamento_con; ?>&ensp;&ensp;&ensp;</option>  
         <?php
         }   
-    }
+    
     ?>
     </select>
     </div>
@@ -256,11 +256,11 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     while($row = $result->fetch_array(MYSQLI_NUM)) {
       $color_con = $row[0];
       $desc_color_con = $row[1];
-      if ($color_con != $color) {
+      
         ?>   
         <option value="<?php echo $color_con; ?>"> <?php echo $desc_color_con; ?>&ensp;&ensp;&ensp;</option>  
         <?php
-        }   
+       
     }
     ?>
     </select>

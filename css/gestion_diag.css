@@ -86,6 +86,7 @@
   th,
   td {
     padding: 10px;
+    text-align: center;
   }
   
   thead {
@@ -169,8 +170,8 @@
     background-color: rgb(250, 198, 198);
   }
   #session{
-    position: relative;  
-    margin-left: 18.6rem;
+    position: relative;      
+    margin-left: 19.5rem;
     background-color:rgb(201, 35, 35);
     color: white;
   }  
@@ -195,6 +196,17 @@
   
   #seleccion{
     position: relative;
+  }
+
+  #noti{
+    margin-left: 3rem ;
+    width: fit-content;
+    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Helvetica Neue', sans-serif;
+    border-radius: 10px;
+    line-height: 30px;
+    font-weight: bold;
+    background-color: rgb(255, 255, 0);
   }
   /* Clases only */
      

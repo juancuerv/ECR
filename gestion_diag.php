@@ -65,12 +65,12 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     if ($_GET["mensaje"] != "") { ?>
     
 
-    <tr>
+    <p id="noti">
       <?php
       if ($mensaje == 1)
-        echo "<p>El análisis fue procesado correctamente. Se le notificará al paciente por correo.";
+        echo "El análisis fue procesado correctamente. Se le notificará al paciente por correo.";
       if ($mensaje == 2)
-        echo "<p>El análisis no fue procesado. Hubo un error, por favor, repita el procedimiento. Lo sentimos.";      
+        echo "El análisis no fue procesado. Hubo un error, por favor, repita el procedimiento. Lo sentimos.";      
       ?>
     </p>
     <?php
@@ -82,73 +82,48 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
       <tr>
         <th>Número de identificación</th>
         <th>Nombres</th>
-        <th>Apellido</th>
-        <th>Correo</th>
-        <th>Usuario</th>
-        <th>Tipo de Usuario</th>
-        <th>Género</th>
-        <th>Estado</th>
-        <th>Modificar</th>        
+        <th>Apellidos</th>
+        <th>ID Formulario</th>
+        <th>Analizar</th>        
       </tr>
     </thead>
 <?php
 
 $mysqli = new mysqli($host, $user, $pw, $db);
+$c1="u.num_id, u.nombres, u.apellidos, f.id";
+$c2= "formularios f, usuarios u where f.usuario_id=u.id";
 if ((isset($_POST["enviado"]))) 
 {
   $id_con = $_POST["id_con"];  
-  $estado = $_POST["estado"];
-  $tipo = $_POST["tipo"];
+  $name_con = $_POST["name_con"];
+  
+  
 
-  $sql1 = "SELECT * from usuarios order by nombres";
+  $sql1 = "SELECT $c1 from $c2 order by usuarios.num_id";
   if ($id_con == "") {
-    if (($estado != "2")&&($tipo!=1))
-    $sql1 = "SELECT * from usuarios where activo=$estado and tipo_usuario=$tipo order by nombres";
-    if (($estado == "2")&&($tipo!=1))
-    $sql1 = "SELECT * from usuarios where tipo_usuario=$tipo order by nombres";
-    if (($estado != "2")&&($tipo==1))
-    $sql1 = "SELECT * from usuarios where activo=$estado order by nombres";    
-  }
-  if ($id_con != "") {
-    if (($estado != "2")&&($tipo!=1))
-    $sql1 = "SELECT * FROM usuarios WHERE num_id='$id_con' and activo=$estado and tipo_usuario=$tipo order by nombres";
-    if (($estado == "2")&&($tipo!=1))
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' and tipo_usuario=$tipo order by nombres";
-    if (($estado != "2")&&($tipo==1))
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' and activo=$estado order by nombres";
+    if ($name_con != "")
+    $sql1 = "SELECT $c1 from $c2 and u.nombres LIKE '$name_con%' order by u.num_id";
     else
-    $sql1 = "SELECT * from usuarios where num_id='$id_con' order by nombres";
+    $sql1 = "SELECT $c1 from $c2 order by usuarios.num_id";
   }
+  else{
+    if ($name_con !="")
+    $sql1 = "SELECT $c1 from $c2 and u.num_id LIKE '$id_con%' and u.nombres LIKE '$name_con%' order by u.nombres";
+    else
+    $sql1 = "SELECT $c1 from $c2 and u.num_id LIKE '$id_con%' order by u.num_id";
+    
+  }    
   
 } 
 else
-  $sql1 = "SELECT * from usuarios order by nombres";
+  $sql1 = "SELECT $c1 from $c2 order by u.num_id";
   $result1 = $mysqli->query($sql1);
   while ($row = $result1->fetch_array(MYSQLI_NUM)) {    
-  $id_usu = $row[0];   
-  $id_usu_enc = md5($id_usu);  
-  $num_id = $row[1];
-  $nombres = $row[7];
-  $apellidos = $row[8];
-  $usuario = $row[2];
-  $correo = $row[11];
-  $genero = $row[10];
-  $sql2 = "SELECT * from genero where id='$genero'";
-  $result2 = $mysqli->query($sql2);
-  $row2 = $result2->fetch_array(MYSQLI_NUM);
-  $desc_genero = $row2[1];
-
-  $activo=$row[5];
-  if ($activo == 1)
-    $desc_activo = "Activo";
-  else
-    $desc_activo = "Inactivo";
-
-  $tipo_usu = $row[4];
-  $sql3 = "SELECT * from tipo_usuario where id='$tipo_usu'";
-  $result3 = $mysqli->query($sql3);
-  $row3 = $result3->fetch_array(MYSQLI_NUM);
-  $desc_tipo_usuario = $row3[1];
+  $num_id = $row[0];       
+  $nombres = $row[1];
+  $apellidos = $row[2];
+  $id_form = $row[3];
+  $id_form_enc = md5($id_form);  
   
 ?>
 
@@ -156,12 +131,9 @@ else
     <td><?php echo $num_id; ?></td>
     <td><?php echo $nombres; ?></td>
     <td><?php echo $apellidos; ?></td>
-    <td><?php echo $correo; ?></td>
-    <td><?php echo $usuario; ?></td>
-    <td><?php echo $desc_tipo_usuario; ?></td>    
-    <td><?php echo $desc_genero; ?></td>
-    <td><?php echo $desc_activo; ?></td>
-    <td><a href="gestion_usua_mod.php?id_usu=<?php echo $id_usu_enc; ?>"> <img src="icons/modificar.png" width=30 height=30></a></td>    
+    <td><?php echo $id_form; ?></td>
+    <td><a href="analizar.php?id_form_enc=<?php echo $id_form_enc; ?>"> <img src="icons/analisis.png" style="border-radius: 1rem;" width=30 height=30></a></td>   
+
   </tr>       
 <?php
 }
