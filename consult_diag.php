@@ -48,44 +48,61 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   
   <main id="wrapper" class="container mx-auto">
   <?php
-  $id_usu=$_SESSION["id_usuario"];
-  $c1="f.id, r.descripcion, r.fecha_recomendacion, m.usuario_id";
-  $c2= "formularios f, usuarios u, medicos m, recomendaciones r, formularios_medicos fu where fu.estado='1' and fu.formulario_id=f.id and f.usuario_id='$id_usu'";
-  //$sql1 = "SELECT COUNT (id) FROM formularios_medicos fm where estado='1'";
-  $sql1 = "SELECT $c1 FROM $c2";
+  $id_usu=$_SESSION["id_usuario"];    
+  $sql1 = "SELECT fu.formulario_id, fu.recomendacion, fu.medico_id FROM formularios_medicos fu where fu.estado='0'";
   $result1 = $mysqli->query($sql1);
-  //$row = $result1->fetch_array(MYSQLI_NUM);
   while ($row = $result1->fetch_array(MYSQLI_NUM)) { 
-    $nombres=$row[0];
-    $apellidos=$row[1];   
-    $descripcion=$row[2];
-    $fecha=$row[3];
-    $medico=$row[4];
-  //for ($i = 1; $i <= $row[0]; $i++) {   
-  
-   
+    $f_id=$row[0];    
+    $rec=$row[1];       
+    $m_id=$row[2];    
+    
+    $sql2 = "SELECT id FROM formularios where usuario_id='$id_usu'";
+    $result2 = $mysqli->query($sql2);
+    while ($row2 = $result2->fetch_array(MYSQLI_NUM)) { 
+    $id_f=$row2[0];
+
+    if($id_f==$f_id){
+    $sql2 = "SELECT usuario_id FROM medicos where id='$m_id'";
+    $result2 = $mysqli->query($sql2);
+    $row2 = $result2->fetch_array(MYSQLI_NUM);
+    $id_u=$row2[0];
+
+    $sql2 = "SELECT nombres, apellidos, genero FROM usuarios where id='$id_u'";
+    $result2 = $mysqli->query($sql2);
+    $row2 = $result2->fetch_array(MYSQLI_NUM);
+    $nombresm=$row2[0];
+    $apellidosm=$row2[1];
+    $generom=$row2[2];
+    if($generom==1){
+    $desc_gen="el doctor";}
+    else{
+    $desc_gen="la doctora";}
+
+    $sql2 = "SELECT descripcion, fecha_recomendacion FROM recomendaciones where id='$rec'";
+    $result2 = $mysqli->query($sql2);
+    $row2 = $result2->fetch_array(MYSQLI_NUM);
+    $desc=$row2[0];
+    $fecha=$row2[1];  
   
   ?>
     <section class="wrapper-inicio">
-        <div>          
-          <p>
-            Si quieres más información de cómo funcionan los dos servicios para el diagnóstico de la enfermedad crónica renal, lee las secciones informativas que se encuentran a continuación.
-          <p>Gracias por escoger a SysKidney, y no olvides que tu salud es lo más importante para nosotros.</p>   
-            
-          </p>
-                    
+        <div>
+        <h3>Formulario <?php echo $id_f;?>:</h3>
+        <p> Para el formulario <?php echo "$id_f, $desc_gen $nombresm $apellidosm en<br>
+          la fecha $fecha, recomendó lo siguiente ";?>:          
+        </p>                                               
         </div>
         <div >
           <h3>Recomendaciones:</h3>
           <aside class="details">
-            <textarea id="desc">
-
-            </textarea>             
+            <textarea id="desc" readonly><?php echo $desc;?></textarea>             
           </aside>
         </div>
     </section>
     <?php
    }
+  }
+  }
     ?>
     
   </main>
