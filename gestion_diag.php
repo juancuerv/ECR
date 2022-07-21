@@ -90,8 +90,9 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
 <?php
 
 $mysqli = new mysqli($host, $user, $pw, $db);
+$med_id = $_SESSION["id_medico"];
 $c1="u.num_id, u.nombres, u.apellidos, f.id";
-$c2= "formularios f, usuarios u where f.usuario_id=u.id";
+$c2= "formularios f, usuarios u, formularios_medicos fu where fu.estado='1' and fu.formulario_id=f.id and f.usuario_id=u.id and fu.medico_id='$med_id'";
 if ((isset($_POST["enviado"]))) 
 {
   $id_con = $_POST["id_con"];  
@@ -99,12 +100,12 @@ if ((isset($_POST["enviado"])))
   
   
 
-  $sql1 = "SELECT $c1 from $c2 order by usuarios.num_id";
+  $sql1 = "SELECT $c1 from $c2 order by u.num_id";
   if ($id_con == "") {
     if ($name_con != "")
     $sql1 = "SELECT $c1 from $c2 and u.nombres LIKE '$name_con%' order by u.num_id";
     else
-    $sql1 = "SELECT $c1 from $c2 order by usuarios.num_id";
+    $sql1 = "SELECT $c1 from $c2 order by u.num_id";
   }
   else{
     if ($name_con !="")

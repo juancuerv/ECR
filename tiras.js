@@ -131,7 +131,7 @@ const buildPalette = (colorsList) => {
         hue = hue + 360;
       }
   
-      //Cuanod todos los tres (R,G y B) son iguales, se obtiene un color neutral (Blanco, gris o negro)
+      //Cuando todos los tres (R,G y B) son iguales, se obtiene un color neutral (Blanco, gris o negro)
       if (difference === 0) {
         return false;
       }

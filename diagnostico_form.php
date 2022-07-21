@@ -38,7 +38,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
       <img id="navbar-logo" src="img/logo.png" width="100" height="100" alt="logo SysKidney" />  
       <a href="home_cliente.php">Inicio</a>                    
       <a href="diagnostico.php">Diagnóstico de ECR</a>                    
-      <a href="gestion_diag.php">Consultar Diagnósticos</a>                                          
+      <a href="consult_diag.php">Consultar Diagnósticos</a>                                          
       <a href="contacto.php">Contacto</a>                    
       <a id="profile" href="gestion_usua.php"><?php echo $_SESSION["nombres"]?></a>                    
       <a id="session" href="cerrar_sesion.php">Cerrar Sesión</a>

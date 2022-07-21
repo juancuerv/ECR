@@ -29,6 +29,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   <link rel="stylesheet" href="css/analizar.css" />
   <link rel="icon" href="img/logo2.jpeg" />  
   <title>SysKidney</title>
+ 
 </head>
   
 <body>
@@ -47,19 +48,33 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   <section class="wrapper-formulario">
   <?php
   if ((isset($_POST["enviado"]))) {
-    $usuario= $_SESSION["id_usuario"];
-    $num_orina = $_POST["num_orina"];
-    $num_miccion = $_POST["num_miccion"];
+    $id_med= $_SESSION["id_medico"];
+    $id_form = $_POST["id_form"];
+    $descripcion = $_POST["descripcion1"];
+    $fecha = $_POST["fecha"];
     
     $mysqli = new mysqli($host, $user, $pw, $db);       
-    $sql = "INSERT INTO formularios(id, num_orina, num_miccion, presion, diabetes, medicamento, acido, reumaticas, enf_renales, quistes_ren, color_orina, porc_riesgo, usuario_id) 
-    VALUES (NULL, '$num_orina','$num_miccion','$presion','$diabetes', '$medicamento' ,'$acido','$reumaticas', '$enf_renal', '$quiste', '$color', '$Porc', '$usuario')";            
-    $result1 = $mysqli->query($sql);          
+    $sql = "INSERT INTO recomendaciones(id, descripcion, fecha_recomendacion)  VALUES (NULL, '$descripcion','$fecha')";            
+    $result1 = $mysqli->query($sql);       
+    $sqlu1 = "UPDATE formularios_medicos set estado='0' where formulario_id='$id_form' and medico_id='$id_med'"; 
+    $resultsqlu1 = $mysqli->query($sqlu1);
 
-  if ($result1 == 1 ) {
+    $sql1 = "SELECT id from recomendaciones where descripcion='$descripcion' and fecha_recomendacion='$fecha' order by id DESC";
+    $result1 = $mysqli->query($sql1);
+    $row1 = $result1->fetch_array(MYSQLI_NUM);
+    $id_rec= $row1[0];
+
+    $sqlu1 = "UPDATE formularios_medicos set recomendacion='$id_rec' where formulario_id='$id_form' and medico_id='$id_med'"; 
+    $resultsqlu1 = $mysqli->query($sqlu1);
+    
+    
+
+    
+
+  if ($result1 == 1 && $resultsqlu1) {
     header('Location:gestion_diag.php?mensaje=1');
   } else
-    header('Location:gestion_diag.php');
+    header('Location:gestion_diag.php?mensaje=2');
   }
 
   else {
@@ -115,11 +130,19 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   $color = $row1[10];  
 
   $porc_riesgo=$row1[11];
-  
+  $usuario_id=$row1[12];
+  $sql1 = "SELECT nombres, apellidos from usuarios where id='$usuario_id'";
+  $result1 = $mysqli->query($sql1);
+  $row1 = $result1->fetch_array(MYSQLI_NUM);
+  $nombres = $row1[0];
+  $apellidos = $row1[1];
+  $fecha = date("Y-m-d");
   
 ?>
-  <a id="back" href="diagnostico.php"></a>        
-  <h3 id="title">Formulario ECR #<?php echo $id_form_enc ?></h3>
+  <a id="back" href="gestion_diag.php"></a>        
+  <div class="formularios">  
+  <h3 id="title">Formulario ECR #<?php echo $id_form_enc ?>.</h3>
+  <h4 id="title2"> Usuario: <?php echo "$apellidos, $nombres";?></h2>
   <div class="formulario">             
   <div class="formulario item1">      
     <p>Número de veces que orina en 24 horas:</p> 
@@ -176,15 +199,35 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     </div>    
   <div class="formulario item1">          
     <p>Porcentaje de riesgo</p> 
-    <input type="number" name=riesgo placeholder="" value="<?php echo $porc_riesgo; ?>"  readonly>
+    <input type="text" name=riesgo placeholder="" value="<?php echo $porc_riesgo; ?>%"  readonly>
   </div>            
     <br><br><br>
+  
+  </section>
+  
+  <section class="wrapper-formulario">
+  <div class="formularios">  
+  <form method=POST action="analizar.php" onsubmit="return confirm('¿Confirma la información proporcionada?');">
+  <h3 id="title3">Realiza las recomendaciones:</h3>
+  <div class="formulario">               
+  <div class="formulario item1">               
+    <p>Descripción de la recomendación:</p>     
+    <textarea id="descripcion" name=descripcion1 placeholder="" value=""  required></textarea>
+  </div>
+  <div class="formulario item1">             
+    <p>Fecha de recomendación:</p>       
+    <input type="date" name=fecha placeholder="" value="<?php echo $fecha;?>"  required>   
+  </div>
+  </div>  
+  <input id="send" type=submit value="Enviar" name="Enviar">    
+  <input type="hidden" value="<?php echo $id_form_enc; ?>" name="id_form">
+  <input type="hidden" value="S" name="enviado">
+  
+  </div>
+  
+  </section>  
   <?php
   }
   ?>  
-  </section>
-  <section class="wrapper-formulario">
-     
-  </section>  
 </body>
 </html>

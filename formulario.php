@@ -38,7 +38,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
       <img id="navbar-logo" src="img/logo.png" width="100" height="100" alt="logo SysKidney" />  
       <a href="home_cliente.php">Inicio</a>                    
       <a href="diagnostico.php">Diagnóstico de ECR</a>                    
-      <a href="gestion_diag.php">Consultar Diagnósticos</a>                                          
+      <a href="consult_diag.php">Consultar Diagnósticos</a>                                          
       <a href="contacto.php">Contacto</a>                    
       <a id="profile" href="perfil.php"><?php echo $_SESSION["nombres"]?></a>                    
       <a id="session" href="cerrar_sesion.php">Cerrar Sesión</a>
@@ -61,7 +61,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     $medicamento = $_POST["medicamento"];
     $color = $_POST["color"];
     //Lógica difusa para iable Orina
-     $a= 3-$num_orina;
+    $a= 3-$num_orina;
    $b= $a/3;
    $c=$num_orina*1;
    $h= $c/3;
@@ -140,7 +140,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   }
   
 
-   $salida= $num_orinaf+$num_miccionf+$presionf+$diabetesf+$medicamento+$acidof+$reumaticasf+$enf_renalf+$quistef;
+   $salida= $num_orinaf+$num_miccionf+$presionf+1+$diabetesf+$medicamento+$acidof+$reumaticasf+$enf_renalf+$quistef;
    $u=16.5-$salida;
    $v1=$u/4.5;
    $w=$salida-12;
@@ -159,6 +159,21 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     $sql = "INSERT INTO formularios(id, num_orina, num_miccion, presion, diabetes, medicamento, acido, reumaticas, enf_renales, quistes_ren, color_orina, porc_riesgo, usuario_id) 
     VALUES (NULL, '$num_orina','$num_miccion','$presion','$diabetes', '$medicamento' ,'$acido','$reumaticas', '$enf_renal', '$quiste', '$color', '$Porc', '$usuario')";            
     $result1 = $mysqli->query($sql);          
+    if($Porc>90){
+      $sql1 = "SELECT id from formularios order by id DESC";
+      $result1 = $mysqli->query($sql1);
+      $row1 = $result1->fetch_array(MYSQLI_NUM);
+      $id_for= $row1[0];
+  
+      $sql1 = "SELECT id from medicos where disponibilidad='1' order by RAND()";
+      $result1 = $mysqli->query($sql1);
+      $row1 = $result1->fetch_array(MYSQLI_NUM);
+      $id_med= $row1[0];
+  
+      $sql1 = "INSERT INTO formularios_medicos (id, formulario_id, medico_id, estado, recomendacion) VALUES (NULL, '$id_for', '$id_med', '1', NULL)";
+      $result1 = $mysqli->query($sql1);
+    }
+    
 
   if ($result1 == 1 ) {
     header('Location:diagnostico_form.php');

@@ -12,7 +12,8 @@
 /* html only */
 
 html {
-  background-color: rgb(208, 239, 253);
+  background-image: url("../img/wallpaper1.svg");
+  
 }
 
 body {
@@ -63,10 +64,8 @@ form {
   display: flex;
   gap: 1rem;
   flex-direction:column;    
-  border-radius: 0.375rem;
-  margin-top: 10px;
-  width: 120%;
-  font-weight: bold;
+  border-radius: 0.375rem;    
+  font-weight: normal;
   font-size: 18px;
 }
 
@@ -95,7 +94,9 @@ form button:hover {
 textarea::selection {
   border: 2px solid var(--v-color-border);
 }
-
+input{
+  font-size: 18px;
+}
 /* Ids only */
 #Si{
   width: 25px;
@@ -111,8 +112,8 @@ textarea::selection {
 }
 
 #wrapper {
-  display: grid;
-  gap: 2rem;
+  display: grid;  
+  grid-template-columns: 1fr 1fr;
 }
 
 
@@ -152,6 +153,14 @@ textarea::selection {
 
 #title{
   margin-top: 90px;
+  margin-left: 10px;
+}
+#title2{  
+  margin-left: 10px;  
+}
+#title3{  
+  margin-top: 130px;
+  margin-left: 10px;  
 }
 
 #session{
@@ -185,21 +194,20 @@ textarea::selection {
 
 }
 
+#descripcion{
+  width: 100%;
+  height: 10rem;
+
+}
 
 
 /* Clases only */
-.radio1 {
-  display: flex;  
-  grid-template-columns: 1fr 1fr;
-  margin-left: 10px;
-  gap: 2rem;    
-}
 
-.formulario {  
-  justify-content: center;
-  width: 70%;
+
+.formulario {   
+  justify-content: center;  
   padding: 10px 10px 10px 10px;
-  border-radius: 0.375rem;
+  border-radius: 1.5rem;
 }
 .item1 {  
   justify-content:space-between;  
@@ -228,9 +236,6 @@ textarea::selection {
   background-color: var(--v-color-buttons);
 }
 
-.bk1 {
-  background-image: url('../img/wallpaper1.svg');
-}
 
 .select-css {
     

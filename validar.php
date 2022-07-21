@@ -44,8 +44,14 @@ if ($numero_filas > 0)
             header("Location: gestion_usua.php");
         elseif($tipo_usuario == 2)
             header("Location: home_cliente.php");
-        else
-            header("Location: home_medico.php");
+        else{
+        $sql2 = "SELECT * from medicos where usuario_id='$row1[0]'";
+        $result2 = $mysqli->query($sql2);
+        $row2 = $result2->fetch_array(MYSQLI_NUM);        
+        $_SESSION["id_medico"]=$row2[0];
+        header("Location: home_medico.php");
+      }
+            
       }
     else 
      {

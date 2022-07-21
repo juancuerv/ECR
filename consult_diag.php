@@ -26,12 +26,12 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="SysKidney" />
-  <link rel="stylesheet" href="css/tiras.css" />
+  <link rel="stylesheet" href="css/consult_diag.css" />
   <link rel="icon" href="img/logo2.jpeg" />
   <title>SysKidney</title>
 </head>
 
-<body id="home" >
+<body id="home">
   <header>
   <nav class="container mx-auto navbar">
     <section class="navbar-list">      
@@ -45,29 +45,49 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     </section>
     </nav>
   </header>
+  
   <main id="wrapper" class="container mx-auto">
+  <?php
+  $id_usu=$_SESSION["id_usuario"];
+  $c1="f.id, r.descripcion, r.fecha_recomendacion, m.usuario_id";
+  $c2= "formularios f, usuarios u, medicos m, recomendaciones r, formularios_medicos fu where fu.estado='1' and fu.formulario_id=f.id and f.usuario_id='$id_usu'";
+  //$sql1 = "SELECT COUNT (id) FROM formularios_medicos fm where estado='1'";
+  $sql1 = "SELECT $c1 FROM $c2";
+  $result1 = $mysqli->query($sql1);
+  //$row = $result1->fetch_array(MYSQLI_NUM);
+  while ($row = $result1->fetch_array(MYSQLI_NUM)) { 
+    $nombres=$row[0];
+    $apellidos=$row[1];   
+    $descripcion=$row[2];
+    $fecha=$row[3];
+    $medico=$row[4];
+  //for ($i = 1; $i <= $row[0]; $i++) {   
+  
+   
+  
+  ?>
     <section class="wrapper-inicio">
-        <div>
-          <h1>Pasos para detectar los colores de la tira reactiva:</h1>
-          <p>1. Selecciona la foto que has tomado de la tira (el formato de la foto debe ser .png y procura que se enfoque únicamente la tira para obtener mejores resultados)</p>   
-          <p>2. Presiona en "Cargar" para que SysKidney se encargue del proceso de detección de color. Luego, podrás observar la paleta de colores obtenida de la foto.</p>
-          <p>3. Finalmente, espera el resultado y las recomendaciones pertinentes de los especialistas.</p>
+        <div>          
+          <p>
+            Si quieres más información de cómo funcionan los dos servicios para el diagnóstico de la enfermedad crónica renal, lee las secciones informativas que se encuentran a continuación.
+          <p>Gracias por escoger a SysKidney, y no olvides que tu salud es lo más importante para nosotros.</p>   
+            
           </p>
                     
         </div>
         <div >
-          <h3>Ahora que ya sabes los pasos, ¡comencemos!</h3>
-          <aside class="details">            
-            <p>Selecciona la opción que se encuentra aquí abajo:</p>
-            <a href="tiras_canvas.php">            
-              <p>Escaneo de Tiras reactivas</p>
-            </a>                                 
+          <h3>Recomendaciones:</h3>
+          <aside class="details">
+            <textarea id="desc">
+
+            </textarea>             
           </aside>
         </div>
-        
-      
     </section>
-   
+    <?php
+   }
+    ?>
+    
   </main>
   <footer>
     <section class="footer-items">
@@ -85,7 +105,6 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
           </a>
         </div>
     </section>
-    
   </footer>
 </body>
 
