@@ -244,7 +244,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     </div>
   </div>
   <div class="formulario item1">
-    <p>Medicamento consumido con más frecuencia (más de 3 veces a la semana):</p>            
+    <p>Medicamento consumido con más frecuencia (más de 3 veces a la semana):<a><img src="../ECR/icons/"</a></p>            
     <select class="select-css" name=medicamento required>
     <?php 	
     $sql = "SELECT * from medicamentos order by id";
