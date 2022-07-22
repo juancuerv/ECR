@@ -138,9 +138,12 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
   else{
     $quistef=1;
   }
+  if($medicamento>3){
+    $medicamentof=1;
+  }
   
 
-   $salida= $num_orinaf+$num_miccionf+$presionf+1+$diabetesf+$medicamento+$acidof+$reumaticasf+$enf_renalf+$quistef;
+   $salida= $num_orinaf+$num_miccionf+$presionf+1+$diabetesf+$medicamentof+$acidof+$reumaticasf+$enf_renalf+$quistef;
    $u=16.5-$salida;
    $v1=$u/4.5;
    $w=$salida-12;
@@ -244,7 +247,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     </div>
   </div>
   <div class="formulario item1">
-    <p>Medicamento consumido con más frecuencia (más de 3 veces a la semana):<a><img src="../ECR/icons/"</a></p>            
+    <p>Medicamento consumido con más frecuencia (más de 3 veces a la semana):</p>            
     <select class="select-css" name=medicamento required>
     <?php 	
     $sql = "SELECT * from medicamentos order by id";

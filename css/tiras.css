@@ -108,6 +108,7 @@ input[type=file].hidden {
   /* create a little bit of contrast for the text */
   mix-blend-mode: difference;
   color: #fff;
+  font-weight: bold;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-shadow: 1px 1px #333;
@@ -208,6 +209,25 @@ input[type=file].hidden {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
   background-color: rgb(0, 151, 161);
+
+}
+#btnContinue{
+  margin-top: 10%;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid var(--v-color-border);
+  border-radius: 5px;
+  font-size: 18px;
+  line-height: 50px;  
+  outline: none;
+  color: white;
+  background-color:rgb(19, 255, 19);  
+  visibility: hidden;
+}  
+#btnContinue:hover{
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  background-color: rgb(85, 255, 62);
 
 }
 /* Clases only */
@@ -343,7 +363,7 @@ input[type=file].hidden {
 
 .footer-items {
   min-height: 96px;
-  margin-top: 150px;
+
   display: flex;
   gap: 1rem;
   justify-content: center;

@@ -131,6 +131,15 @@ figure {
 #navbar-logo {
   margin-right: 1rem;
 }
+#med {
+  color: red;
+  text-decoration: solid;
+  font-weight: bolder;
+  text-decoration: underline;
+}
+#med1{
+  text-align: justify;
+}
 
 #wrapper {
   display: grid;

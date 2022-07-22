@@ -51,7 +51,7 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
       <h1>Selecciona la foto:</h1>                  
       <script src="tiras.js"></script>
         <form action="#">
-        <input class="hidden" accept="image/png, image/jpeg" type="file" id="imgfile">                        
+        <input class="hidden" accept="image/png, image/jpeg" type="file" id="imgfile" required>                        
         <input type="button" id="btnLoad" value="Escanear" onclick="main();">         
         </form>                    
     </div>
@@ -62,7 +62,9 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     <div id="complementary"></div>
       
     </section>
-    
+    <form action="home_cliente.php" method="POST">
+      <input type="submit" id="btnContinue" value="Continuar" name="continuar">
+    </form>
   </main>
   <footer>
     <section class="footer-items">

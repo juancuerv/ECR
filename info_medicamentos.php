@@ -46,33 +46,30 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
     </nav>
   </header>
   <main id="wrapper" class="container mx-auto">
-  <a id="back" href="home_cliente.php"></a>
+  <a id="back" href="info_formulario.php"></a>
     <section class="wrapper-inicio">
       <div class="wrapper-inicio-photo">
         <img id="photo" src="img/medico.png" width="400" height="500" alt="foto de perfil" />
       </div>
       <div class="wrapper-inicio-description">        
         <div>
-          <h1>Formulario ECR</h1>
-          <p>
-            El formulario que se debe completar, consiste en proporcionar información personal e importante para determinar el porcentaje de probabilidad
-            que tiene de padecer la enfermedad, se encontrará que el formulario requiere:
+          <h1>Tipos de Medicamentos:</h1>
+          <p id="med1">
+            Existen distintos tipos de medicamentos que pueden tener una repercusión negativa en la salud, especialmente en 
+            la salud de los riñones si se consumen de forma desmesurada, a continuación se describen ciertos medicamentos perjudiciales para la salud si se consumen en exceso:
           </p>
           <ol>
-            <li>Número de veces que orina en 24 horas</li>
-            <li>Número de micciones por la noche </li>
-            <li>Presión arterial del paciente</li>
-            <li>Diabetes</li>
-            <li>Consumo de medicamentos con frecuencia (más de 3 veces a la semana). Conoce los tipos de medicamentos considerados <a id="med" href="info_medicamentos.php">aquí</a>.</li>
-            <li>Padecer ácido úrico </li>
-            <li>Enfermedades reumáticas</li>
-            <li>Familiares con enfermedades renales</li>
-            <li>Familiares con quistes renales</li>
-            <li>Color de orina</li>
+            <li><strong>Aines</strong> (medicamentos antiinflamatorios no esteroides), algunos ejemplos son: celecoxib (Celebrex),
+              diclofenaco (Voltaren), etodolaco (Lodine), indometacina (Indocin) o piroxicam (Feldene)</li>
+            <li><strong>Antibióticos</strong>, algunos ejemplos son: amoxicilina, azitromicina (Zithromax), cefalexina (Keflex) o ciprofloxacina (Cipro)</li>
+            <li><strong>Antifúngicos</strong>, algunos ejemplos son: Nistatina, Imidazol, clotrimazol, naftifina, caspofungina, Flucitosina, Yoduro de potasio, etcétera.</li>
+            <li><strong>Inmunosupresores</strong>, algunos ejemplos son: Esteroides, Hidroxicloroquina, Sulfasalazina, Metotrexato, Azatioprina, entre otros.</li>
+            <li><strong>Inhibidores de enzima convertidora</strong>, algunos ejemplos son: Benazepril, Captopril, entre otros.</li>
+            <li><strong>Antivirales</strong>, algunos ejemplos son: Aciclovir, Amantadina, Ganciclovir, Idoxuridina, Rimantadina, entre otros. </li>
+      
           </ol>              
-          <p>Requerimos que la información proporcionada sea lo más veraz y acertada posible para realizar un diagnóstico correcto.</p>                                           
-        </div>             
-        <a id="btn_formulario" href="formulario.php">¡Llena el formulario!</a>
+    
+        </div>           
     </section>
 
     

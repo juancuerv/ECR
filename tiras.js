@@ -1,11 +1,14 @@
 //Código tomado de: https://github.com/zygisS22/color-palette-extraction/blob/master/index.html
 //Créditos a: Zygimantas Sniurevicius
+
 const buildPalette = (colorsList) => {
     const paletteContainer = document.getElementById("palette");
     const complementaryContainer = document.getElementById("complementary");
+    const btnCont = document.getElementById("btnContinue").style.visibility = "visible";
     // Si se quiere analizar varias imágenes se debe recargar la página y repetir el proceso
     paletteContainer.innerHTML = "";
     complementaryContainer.innerHTML = "";
+    btnCont.innerHTML = "";
   
     const orderedByColor = orderByLuminance(colorsList);
     const hslColors = convertRGBtoHSL(orderedByColor);
@@ -231,7 +234,7 @@ const buildPalette = (colorsList) => {
   };
   
   /**
-   * Implementaci "Median cut"
+   * Implementación "Median cut"
    * para mayor información -> https://en.wikipedia.org/wiki/Median_cut
    */
   const quantization = (rgbValues, depth) => {
