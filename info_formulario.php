@@ -64,8 +64,8 @@ if ($_SESSION["tipo_usuario"] != $desc_tipo_usuario)
             <li>Presión arterial del paciente</li>
             <li>Diabetes</li>
             <li>Consumo de medicamentos con frecuencia (más de 3 veces a la semana). Conoce los tipos de medicamentos considerados <a id="med" href="info_medicamentos.php">aquí</a>.</li>
-            <li>Padecer ácido úrico </li>
-            <li>Enfermedades reumáticas</li>
+            <li>Padecer ácido úrico (Def: el ácido úrico se produce cuando el metabolismo desintegra las purinas, que proceden en gran parte de la dieta, aunque el organismo también las fabrica. Estas sustancias se encuentran en algunos alimentos y bebidas como el hígado, las anchoas, las judías, la caballa o la cerveza, entre otros).</li>
+            <li>Enfermedades reumáticas (Artritis, Lupus, Gota, entre otras)</li>
             <li>Familiares con enfermedades renales</li>
             <li>Familiares con quistes renales</li>
             <li>Color de orina</li>
